@@ -1,7 +1,18 @@
 import express, { Request, Response } from "express";
+import http from "http";
+import cors from "cors";
+import { Server } from "socket.io";
 import { router } from "./routes";
 
 const app = express();
+app.use(cors());
+
+const httpServer = http.createServer(app);
+const io = new Server(httpServer, { cors: { origin: "*" } });
+
+io.on("connection", (socket) => {
+    console.log(`user connected on socket ${socket.id}`);
+});
 
 app.use(express.json());
 app.use(router);
@@ -17,5 +28,4 @@ app.get("/signin/callback", (req: Request, res: Response) => {
     return res.json(code);
 });
 
-const port = process.env.NODE_PORT || 4000;
-app.listen(port, () => { console.log(`server running on port ${port}`); });
+export { httpServer, io };
