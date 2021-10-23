@@ -4,6 +4,6 @@
     "private": true,
     "scripts": {
         "serve": "cd node && yarn prod",
-        "heroku-postbuild": "cd web && yarn && yarn build && cd ../node && yarn && yarn build"
+        "heroku-postbuild": "cd web && yarn --prod=false && yarn build && cd ../node && yarn --prod=false && yarn build"
     }
 }
