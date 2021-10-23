@@ -15,7 +15,7 @@ type Message = {
 
 const msgQueue: Message[] = [];
 
-const socket = io('http://localhost:4000')
+const socket = io('http://heat-nlw.herokuapp.com/')
 
 socket.on('new_message', (newMsg: Message) => {
     msgQueue.push(newMsg)
@@ -28,13 +28,13 @@ export function MessageList() {
     useEffect(() => {
         setInterval(() => {
             if (msgQueue.length > 0) {
-               setMessages(prevState => [
-                   msgQueue[0],
-                   prevState[0],
-                   prevState[1]
-               ].filter(Boolean))
+                setMessages(prevState => [
+                    msgQueue[0],
+                    prevState[0],
+                    prevState[1]
+                ].filter(Boolean))
 
-               msgQueue.shift()
+                msgQueue.shift()
             }
         }, 3000)
     }, [])
