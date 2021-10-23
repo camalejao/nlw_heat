@@ -1,0 +1,9 @@
+{
+    "name": "nlw_heat",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "serve": "cd node && yarn prod",
+        "heroku-postbuild": "cd web && yarn && yarn build && cd ../node && yarn && yarn build"
+    }
+}
