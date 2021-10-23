@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import http from "http";
+import path from "path";
 import cors from "cors";
 import { Server } from "socket.io";
 import { router } from "./routes";
@@ -15,6 +16,12 @@ io.on("connection", (socket) => {
 });
 
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, "../..", "web/dist")));
+app.set("views", path.join(__dirname, "../..", "web/dist"));
+app.engine("html", require("ejs").renderFile);
+app.set("view engine", "html");
+
 app.use(router);
 
 app.get("/github_signin", (req: Request, res: Response) => {
